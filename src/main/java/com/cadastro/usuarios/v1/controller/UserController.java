@@ -13,17 +13,18 @@ import javax.validation.Valid;
 @RequestMapping(value="/user")
 @Controller
 public class UserController {
+
     @Autowired
     UserService userService;
 
     @PostMapping(value="/save")
     public ResponseEntity<Usuario> save(@Valid @RequestBody Usuario user){
-        return new ResponseEntity(userService.save(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
     @GetMapping(value="/retrieve/{id}")
     public ResponseEntity<Usuario> retrieve (@PathVariable Long id){
-        return new ResponseEntity(userService.retrieve(id), HttpStatus.OK);
+        return new ResponseEntity<>(userService.retrieve(id), HttpStatus.OK);
     }
 
     @PutMapping

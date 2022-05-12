@@ -4,6 +4,7 @@ import com.cadastro.usuarios.domain.model.Usuario;
 import com.cadastro.usuarios.domain.repository.UserRepository;
 import com.cadastro.usuarios.exception.CrudException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class UserService {
     public Usuario save(Usuario user) {
         try {
             return userRepository.save(user);
-        } catch (IllegalArgumentException ex) {
-            throw new CrudException(HttpStatus.BAD_REQUEST, "Usuário inválido");
+        } catch (DataIntegrityViolationException ex) {
+            throw new CrudException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
         } catch (Exception ex) {
             throw new CrudException(HttpStatus.BAD_REQUEST, "Não foi possível salvar o usuário.");
         }
@@ -35,10 +36,8 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        try {
+        userRepository.findById(id)
+                .orElseThrow(()-> new CrudException(HttpStatus.NO_CONTENT,"Usuario não existe"));
             userRepository.deleteById(id);
-        } catch (Exception ex) {
-            throw new CrudException(HttpStatus.NO_CONTENT, "Usuario com este ID nao existe");
-        }
     }
 }
