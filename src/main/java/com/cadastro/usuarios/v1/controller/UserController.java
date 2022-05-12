@@ -28,7 +28,7 @@ public class UserController {
 
     @PutMapping
     public ResponseEntity<Usuario> update (@Valid @RequestBody Usuario user){
-        return new ResponseEntity<>(userService.update(user), HttpStatus.CREATED);
+            return new ResponseEntity<>(userService.update(user), HttpStatus.CREATED);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
