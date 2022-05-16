@@ -24,8 +24,10 @@ public class UserService {
             return userRepository.save(user);
         } catch (DataIntegrityViolationException ex) {
             throw new CrudException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
-        } catch (Exception ex) {
-            throw new CrudException(HttpStatus.BAD_REQUEST, "Não foi possível salvar o usuário.");
+        } catch (IllegalArgumentException ex) {
+            throw new CrudException(HttpStatus.BAD_REQUEST, "Usuario inválido");
+        } catch (Exception ex){
+            throw new CrudException(HttpStatus.BAD_REQUEST,"Não foi possivel salvar o usuario");
         }
     }
 
