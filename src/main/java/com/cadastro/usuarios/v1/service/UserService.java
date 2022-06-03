@@ -8,6 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -16,6 +18,10 @@ public class UserService {
     public Usuario retrieve(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new CrudException(HttpStatus.NO_CONTENT, "Não existe usuário na base com este ID"));
+    }
+
+    public List retrieveAll(){
+        return userRepository.findAll();
     }
 
 
@@ -39,7 +45,7 @@ public class UserService {
 
     public void delete(Long id) {
         userRepository.findById(id)
-                .orElseThrow(()-> new CrudException(HttpStatus.NO_CONTENT,"Usuario não existe"));
+                .orElseThrow(()-> new CrudException(HttpStatus.BAD_REQUEST,"Usuario não existe"));
             userRepository.deleteById(id);
     }
 }

@@ -2,10 +2,7 @@ package com.cadastro.usuarios.domain.model;
 
 import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity(name= "t_usuarios")
 @Table(name = "t_usuarios")
@@ -13,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +26,12 @@ public class Usuario {
     private int idade;
     @Column(name="ativo")
     private boolean ativo;
+
+    public Usuario(String nome, String sobrenome, String email, int idade, boolean ativo) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.email = email;
+        this.idade = idade;
+        this.ativo = ativo;
+    }
 }

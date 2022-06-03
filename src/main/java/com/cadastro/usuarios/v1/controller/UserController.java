@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequestMapping(value="/user")
 @Controller
@@ -25,6 +26,11 @@ public class UserController {
     @GetMapping(value="/retrieve/{id}")
     public ResponseEntity<Usuario> retrieve (@PathVariable Long id){
         return new ResponseEntity<>(userService.retrieve(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/retrieve")
+    public ResponseEntity<List> retrieveAll() {
+        return new ResponseEntity<>(userService.retrieveAll(),HttpStatus.OK);
     }
 
     @PutMapping
