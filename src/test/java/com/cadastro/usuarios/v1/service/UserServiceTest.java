@@ -1,5 +1,6 @@
 package com.cadastro.usuarios.v1.service;
 
+import com.cadastro.usuarios.domain.model.DTO.UsuarioDTO;
 import com.cadastro.usuarios.domain.model.Usuario;
 import com.cadastro.usuarios.domain.repository.UserRepository;
 import com.cadastro.usuarios.exception.CrudException;
@@ -40,7 +41,7 @@ class UserServiceTest {
         when(userRepository.findAll()).thenReturn(list);
 
         //test
-        List<Usuario> userList = userService.retrieveAll();
+        List<UsuarioDTO> userList = userService.retrieveAll();
 
         assertEquals(3, userList.size());
         verify(userRepository, times(1)).findAll();
@@ -94,8 +95,8 @@ class UserServiceTest {
 
     @Test
     public void testUpdateUsuario() {
-        Usuario user1 = new Usuario(12L,"name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario(12L,"name2", "sobrenome2", "email@email.com", 12, true);
+        Usuario user1 = new Usuario(12L, "name", "sobrenome", "email@email.com", 12, true);
+        Usuario user2 = new Usuario(12L, "name2", "sobrenome2", "email@email.com", 12, true);
 
         when(userRepository.save(user1)).thenReturn(user2);
         when(userRepository.findById(user2.getId())).thenReturn(Optional.of(user2));
@@ -106,10 +107,10 @@ class UserServiceTest {
 
     @Test
     public void testUpdateUsuarioException() {
-        Usuario user1 = new Usuario(12L,"name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario(12L,"name2", "sobrenome2", "email@email.com", 12, true);
+        Usuario user1 = new Usuario(12L, "name", "sobrenome", "email@email.com", 12, true);
+        Usuario user2 = new Usuario(12L, "name2", "sobrenome2", "email@email.com", 12, true);
 
-        when(userRepository.findById(user2.getId())).thenThrow(new CrudException(HttpStatus.NO_CONTENT,""));
+        when(userRepository.findById(user2.getId())).thenThrow(new CrudException(HttpStatus.NO_CONTENT, ""));
         assertThrows(CrudException.class, () -> userService.update(user2));
 
     }
@@ -123,6 +124,7 @@ class UserServiceTest {
         Mockito.verify(userRepository).deleteById(1000L);
 
     }
+
     @Test
     public void testDeleteException() throws Exception {
         Usuario user1 = new Usuario(1000L, "name", "sobrenome", "email@email.com", 12, true);
@@ -131,6 +133,4 @@ class UserServiceTest {
         assertThrows(CrudException.class, () -> userService.delete(1000L));
 
     }
-
-
 }
