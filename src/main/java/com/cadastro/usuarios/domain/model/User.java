@@ -9,14 +9,14 @@ import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity(name = "t_usuarios")
-@Table(name = "t_usuarios")
+@Entity(name = "user")
+@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class Usuario {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
@@ -41,7 +41,7 @@ public class Usuario {
     @ToString.Exclude
     private Dependente userDep;
 
-    public Usuario(Long id, String nome, String sobrenome, String email, int idade, boolean ativo) {
+    public User(Long id, String nome, String sobrenome, String email, int idade, boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -50,7 +50,7 @@ public class Usuario {
         this.ativo = ativo;
     }
 
-    public Usuario(String nome, String sobrenome, String email, int idade, boolean ativo) {
+    public User(String nome, String sobrenome, String email, int idade, boolean ativo) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;

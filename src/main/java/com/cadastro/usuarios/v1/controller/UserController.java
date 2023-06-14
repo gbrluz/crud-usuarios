@@ -1,10 +1,9 @@
 package com.cadastro.usuarios.v1.controller;
 
-import com.cadastro.usuarios.domain.model.Usuario;
+import com.cadastro.usuarios.domain.model.User;
 import com.cadastro.usuarios.domain.model.DTO.UsuarioDTO;
 import com.cadastro.usuarios.v1.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +22,7 @@ public class UserController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Usuario save(@Valid @RequestBody Usuario user) {
+    public User save(@Valid @RequestBody User user) {
         return userService.save(user);
     }
 
@@ -52,7 +51,7 @@ public class UserController {
     @PutMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
-    public UsuarioDTO update(@Valid @RequestBody Usuario user) {
+    public UsuarioDTO update(@Valid @RequestBody User user) {
         return userService.update(user);
     }
 

@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity(name = "t_documentos")
-@Table(name = "t_documentos")
+@Entity(name = "documento")
+@Table(name = "documento")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,17 +25,12 @@ public class Documento {
     @Column(name = "numero")
     private String numero;
     @Column(name = "tipo")
-    //Tipo devera ser um enum
     private Docs tipo;
     @Column(name = "data_de_exp")
     private String dataDeExpedicao;
-    //Orgao sera um link para uma tabela de orgaos
     @Column(name = "orgao_exp")
     private int orgaoExpeditor;
     @Column(name = "validade")
     private String validade;
 
-    @JoinColumn(name = "user_id")
-    @ManyToOne(fetch = LAZY)
-    private Usuario user;
 }

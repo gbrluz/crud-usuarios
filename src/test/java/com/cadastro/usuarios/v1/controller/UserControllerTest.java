@@ -1,6 +1,6 @@
 package com.cadastro.usuarios.v1.controller;
 
-import com.cadastro.usuarios.domain.model.Usuario;
+import com.cadastro.usuarios.domain.model.User;
 import com.cadastro.usuarios.domain.model.DTO.UsuarioDTO;
 import com.cadastro.usuarios.v1.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,7 +72,7 @@ class UserControllerTest {
 
     @Test
     public void testSave() throws Exception {
-        Usuario user = new Usuario(10L, "nome", "sobrenome", "email@email.com", 12, true);
+        User user = new User(10L, "nome", "sobrenome", "email@email.com", 12, true);
         //O mock só vai performar uma ação, quando o parametro usado for ou identico ou o mesmo
         // 1 é igual a L quando "int L = 1";
         // e 1 é igual a 1
@@ -117,7 +117,7 @@ class UserControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        Usuario user = new Usuario(10L, "nome", "sobrenome", "email@email.com", 12, true);
+        User user = new User(10L, "nome", "sobrenome", "email@email.com", 12, true);
 
         when(userService.save(user)).thenReturn(user);
 

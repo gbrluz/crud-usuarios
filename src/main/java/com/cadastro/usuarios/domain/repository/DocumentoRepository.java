@@ -2,7 +2,6 @@ package com.cadastro.usuarios.domain.repository;
 
 import com.cadastro.usuarios.domain.model.DTO.IDocumentoDTO;
 import com.cadastro.usuarios.domain.model.Documento;
-import com.cadastro.usuarios.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

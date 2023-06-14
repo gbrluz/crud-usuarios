@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
-@Entity(name = "t_dependentes")
-@Table(name = "t_dependentes")
+@Entity(name = "dependente")
+@Table(name = "dependente")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -20,16 +20,16 @@ public class Dependente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     private Long id;
-    @Column(name = "dep_nome")
-    private String depNome;
-    @Column(name = "dep_sobrenome")
-    private String depSobrenome;
-    @Column(name = "dep_idade")
-    private int depIdade;
+    @Column(name = "nome")
+    private String nome;
+    @Column(name = "vinculo")
+    private String vinculo;
+    @Column(name = "idade")
+    private int idade;
 
     @JoinColumn(name = "user_id")
     @OneToOne(fetch = LAZY)
-    private Usuario user;
+    private User user;
 
 }
 

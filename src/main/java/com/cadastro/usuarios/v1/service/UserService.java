@@ -3,13 +3,12 @@ package com.cadastro.usuarios.v1.service;
 import com.cadastro.usuarios.domain.model.DTO.UsuarioDTO;
 import com.cadastro.usuarios.domain.model.Dependente;
 import com.cadastro.usuarios.domain.model.Documento;
-import com.cadastro.usuarios.domain.model.Usuario;
+import com.cadastro.usuarios.domain.model.User;
 import com.cadastro.usuarios.domain.repository.DependenteRepository;
 import com.cadastro.usuarios.domain.repository.DocumentoRepository;
 import com.cadastro.usuarios.domain.repository.UserRepository;
 import com.cadastro.usuarios.exception.CrudException;
 import com.cadastro.usuarios.interf.Mappable;
-import com.cadastro.usuarios.mapper.*;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -53,34 +52,34 @@ public class UserService implements Mappable {
     }
 
 
-    public Usuario save(Usuario user) {
+    public User save(User user) {
         try {
             List<Documento> doc = new ArrayList<>();
             doc.addAll(user.getUserDoc());
             Dependente dep = user.getUserDep();
             user.setUserDep(null);
             user.setUserDoc(null);
-            Usuario usuarioSalvo = userRepository.save(user);
-            dep.setUser(usuarioSalvo);
-            doc.forEach(documento -> documento.setUser(usuarioSalvo));
-            usuarioSalvo.setUserDep(dependenteRepository.save(dep));
-            usuarioSalvo.getUserDoc().addAll(documentoRepository.saveAll(doc));
-            return usuarioSalvo;
+            User userSalvo = userRepository.save(user);
+            dep.setUser(userSalvo);
+            doc.forEach(documento -> documento.setUser(userSalvo));
+            userSalvo.setUserDep(dependenteRepository.save(dep));
+            userSalvo.getUserDoc().addAll(documentoRepository.saveAll(doc));
+            return userSalvo;
         } catch (DataIntegrityViolationException ex) {
             throw new CrudException(HttpStatus.BAD_REQUEST, "Email já cadastrado");
         } catch (IllegalArgumentException ex) {
-            throw new CrudException(HttpStatus.BAD_REQUEST, "Usuario inválido");
+            throw new CrudException(HttpStatus.BAD_REQUEST, "User inválido");
         } catch (Exception ex) {
             throw new CrudException(HttpStatus.BAD_REQUEST, "Não foi possivel salvar o usuario");
         }
     }
 
-    public UsuarioDTO update(Usuario user) {
+    public UsuarioDTO update(User user) {
         userRepository.findById(user.getId())
                 .orElseThrow(() -> new CrudException(HttpStatus.NO_CONTENT, "Usuário inexistente"));
         user.getUserDep().setUser(user);
         //user.getUserDoc().setUser(user);
-        Usuario savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);
         return UsuarioDTO.builder()
                 .nomeCompleto(savedUser.getNome() + savedUser.getSobrenome())
                 .email(savedUser.getEmail())
@@ -90,7 +89,7 @@ public class UserService implements Mappable {
 
     public void delete(Long id) {
         userRepository.findUserById(id)
-                .orElseThrow(() -> new CrudException(HttpStatus.BAD_REQUEST, "Usuario não existe"));
+                .orElseThrow(() -> new CrudException(HttpStatus.BAD_REQUEST, "User não existe"));
         userRepository.deleteWholeUserById(id, id);
     }
 }

@@ -1,17 +1,10 @@
 package com.cadastro.usuarios.domain.model.DTO;
 
-import com.cadastro.usuarios.domain.model.Dependente;
-import com.cadastro.usuarios.domain.model.Documento;
-import com.cadastro.usuarios.domain.model.Usuario;
 import lombok.*;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
 
 @NoArgsConstructor
 @AllArgsConstructor

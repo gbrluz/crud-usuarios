@@ -1,7 +1,7 @@
 package com.cadastro.usuarios.v1.service;
 
 import com.cadastro.usuarios.domain.model.DTO.UsuarioDTO;
-import com.cadastro.usuarios.domain.model.Usuario;
+import com.cadastro.usuarios.domain.model.User;
 import com.cadastro.usuarios.domain.repository.UserRepository;
 import com.cadastro.usuarios.exception.CrudException;
 import org.junit.jupiter.api.Test;
@@ -32,11 +32,11 @@ class UserServiceTest {
 
     @Test
     public void testFindAllUsuarios() {
-        List<Usuario> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
 
-        list.add(new Usuario(10L, "name", "sobrenome", "email@email.com", 12, true));
-        list.add(new Usuario(11L, "name2", "sobrenome2", "email2@email.com", 12, true));
-        list.add(new Usuario(12L, "name3", "sobrenome3", "email3@email.com", 12, true));
+        list.add(new User(10L, "name", "sobrenome", "email@email.com", 12, true));
+        list.add(new User(11L, "name2", "sobrenome2", "email2@email.com", 12, true));
+        list.add(new User(12L, "name3", "sobrenome3", "email3@email.com", 12, true));
 
         when(userRepository.findAll()).thenReturn(list);
 
@@ -49,7 +49,7 @@ class UserServiceTest {
 
     @Test
     public void testFindUsuario() {
-        Usuario user = new Usuario(10L, "name", "sobrenome", "email@email.com", 12, true);
+        User user = new User(10L, "name", "sobrenome", "email@email.com", 12, true);
 
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
@@ -59,7 +59,7 @@ class UserServiceTest {
 
     @Test
     public void testFindUsuarioException() {
-        Usuario user = new Usuario(10L, "name", "sobrenome", "email@email.com", 12, true);
+        User user = new User(10L, "name", "sobrenome", "email@email.com", 12, true);
 
         when(userRepository.findById(user.getId())).thenThrow(new CrudException(HttpStatus.NO_CONTENT, ""));
         assertThrows(CrudException.class, () -> userService.retrieve(user.getId()));
@@ -69,8 +69,8 @@ class UserServiceTest {
 
     @Test
     public void testSaveUsuario() {
-        Usuario user1 = new Usuario("name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario(10L, "name", "sobrenome", "email@email.com", 12, true);
+        User user1 = new User("name", "sobrenome", "email@email.com", 12, true);
+        User user2 = new User(10L, "name", "sobrenome", "email@email.com", 12, true);
 
         when(userRepository.save(user1)).thenReturn(user2);
 
@@ -81,9 +81,9 @@ class UserServiceTest {
 
     @Test
     public void testSaveUsuarioException() {
-        Usuario user1 = new Usuario("name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario("name2", "sobrenome2", "email@email.com", 12, true);
-        Usuario user3 = new Usuario("name3", "sobrenome3", "email@email.com", 12, true);
+        User user1 = new User("name", "sobrenome", "email@email.com", 12, true);
+        User user2 = new User("name2", "sobrenome2", "email@email.com", 12, true);
+        User user3 = new User("name3", "sobrenome3", "email@email.com", 12, true);
 
         when(userRepository.save(user1)).thenThrow(new DataIntegrityViolationException(""));
         assertThrows(CrudException.class, () -> userService.save(user1));
@@ -95,8 +95,8 @@ class UserServiceTest {
 
     @Test
     public void testUpdateUsuario() {
-        Usuario user1 = new Usuario(12L, "name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario(12L, "name2", "sobrenome2", "email@email.com", 12, true);
+        User user1 = new User(12L, "name", "sobrenome", "email@email.com", 12, true);
+        User user2 = new User(12L, "name2", "sobrenome2", "email@email.com", 12, true);
 
         when(userRepository.save(user1)).thenReturn(user2);
         when(userRepository.findById(user2.getId())).thenReturn(Optional.of(user2));
@@ -107,8 +107,8 @@ class UserServiceTest {
 
     @Test
     public void testUpdateUsuarioException() {
-        Usuario user1 = new Usuario(12L, "name", "sobrenome", "email@email.com", 12, true);
-        Usuario user2 = new Usuario(12L, "name2", "sobrenome2", "email@email.com", 12, true);
+        User user1 = new User(12L, "name", "sobrenome", "email@email.com", 12, true);
+        User user2 = new User(12L, "name2", "sobrenome2", "email@email.com", 12, true);
 
         when(userRepository.findById(user2.getId())).thenThrow(new CrudException(HttpStatus.NO_CONTENT, ""));
         assertThrows(CrudException.class, () -> userService.update(user2));
@@ -117,7 +117,7 @@ class UserServiceTest {
 
     @Test
     public void testDelete() throws Exception {
-        Usuario user1 = new Usuario(1000L, "name", "sobrenome", "email@email.com", 12, true);
+        User user1 = new User(1000L, "name", "sobrenome", "email@email.com", 12, true);
 
         when(userRepository.findById(1000L)).thenReturn(Optional.of(user1));
         userService.delete(1000L);
@@ -127,7 +127,7 @@ class UserServiceTest {
 
     @Test
     public void testDeleteException() throws Exception {
-        Usuario user1 = new Usuario(1000L, "name", "sobrenome", "email@email.com", 12, true);
+        User user1 = new User(1000L, "name", "sobrenome", "email@email.com", 12, true);
 
         when(userRepository.findById(user1.getId())).thenReturn(Optional.ofNullable(null));
         assertThrows(CrudException.class, () -> userService.delete(1000L));

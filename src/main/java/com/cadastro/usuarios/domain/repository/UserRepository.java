@@ -1,7 +1,7 @@
 package com.cadastro.usuarios.domain.repository;
 
 import com.cadastro.usuarios.domain.model.DTO.IUsuarioDTO;
-import com.cadastro.usuarios.domain.model.Usuario;
+import com.cadastro.usuarios.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<Usuario, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
     //Criar DTOs que mostrem a informação útil na response para os métodos save e update
     //Criar queries nativas que retornem Projeções para os métodos
     //findAll e FindById
